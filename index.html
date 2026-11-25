@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>画面の場所｜アパレルCAD マニュアル</title>
-<link rel="stylesheet" href="style.css">
+<link rel="stylesheet" href="style.css?v=13">
 <style>
 html, body { height: 100%; }
 body { display: flex; flex-direction: column; overflow: hidden; }
@@ -44,7 +44,7 @@ body { display: flex; flex-direction: column; overflow: hidden; }
 .zoom .box i { position: absolute; border: 3px solid var(--acc); border-radius: 4px; box-shadow: 0 0 0 4000px rgba(0, 0, 0, .3); }
 .bar { display: flex; gap: 8px; align-items: center; color: #aab2bf; font-size: 12px; margin: 0 auto 8px; max-width: 1440px; }
 .bar label { cursor: pointer; }
-@media (max-width: 900px) {
+@media screen and (max-width: 900px) {
   body { overflow: auto; height: auto; }
   .wrap { grid-template-columns: 1fr; }
   .side { border-right: 0; border-bottom: 1px solid var(--line); max-height: 40vh; }
@@ -55,13 +55,16 @@ body { display: flex; flex-direction: column; overflow: hidden; }
 </head>
 <body>
 <header class="top">
-  <h1>アパレルCAD マニュアル<small>型紙CAD の試作（ver 10）</small></h1>
+  <h1>アパレルCAD マニュアル<small>型紙CAD の試作（ver 11）</small></h1>
   <nav>
     <a href="concept.html">概要</a>
+    <a href="quickstart.html">クイックスタート</a>
+    <a href="tutorial.html">見本ができるまで</a>
     <a href="guide.html">使い方ガイド</a>
     <a href="index.html" class="on">画面の場所</a>
   </nav>
   <span class="grow"></span>
+  <span class="pdfs">PDF：<a href="concept.pdf" target="_blank">概要</a><a href="quickstart.pdf" target="_blank">クイックスタート</a><a href="tutorial.pdf" target="_blank">見本ができるまで</a><a href="guide.pdf" target="_blank">ガイド</a></span>
   <span class="sub">番号か画面の場所を押すと、赤い枠で示します。<kbd>↑</kbd><kbd>↓</kbd> で順送り</span>
 </header>
 <div class="wrap">
@@ -79,8 +82,8 @@ body { display: flex; flex-direction: column; overflow: hidden; }
     <div class="zoom"><span class="lab">拡大</span><div class="box" id="zoom"><img src="img/app.png" alt=""><i></i></div></div>
   </main>
 </div>
-<script src="shots.js"></script>
-<script src="data.js"></script>
+<script src="shots.js?v=13"></script>
+<script src="data.js?v=13"></script>
 <script>
 (function () {
   const $ = (id) => document.getElementById(id);

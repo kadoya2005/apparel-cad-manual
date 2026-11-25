@@ -43,6 +43,7 @@ window.DATA = {
     { no: '31', cat: 'pattern', r: 'patQty', name: '枚数', what: '裁断する枚数。', how: '左右の袖なら 2。' },
     { no: '32', cat: 'pattern', r: 'patNotch', name: '合印（ノッチの書き出し方）', what: 'ノッチを DXF に書くときの形。', how: 'ふつうは「点（AAMA の標準）」。うまく出ないときは「線」。' },
     { no: '33', cat: 'pattern', r: 'patEnc', name: '文字（文字コード）', what: 'パーツ名などの文字の書き方。', how: 'ふつうは「Shift_JIS」。名前が化けたら「UTF-8」。' },
+    { no: '33b', cat: 'pattern', r: 'seam', name: '縫い代…', what: '選んだ縫い線の外側に、縫い代の幅で輪郭（裁断線）を作る。', how: '縫い線を選んで押し、縫い代（mm）を入れて OK。同じ型紙に輪郭があれば作り直します。' },
     { no: '34', cat: 'pattern', r: 'spread', name: '切り開き…', what: '選んだ型紙を、切り開き線のところで開いて広げる（タイトスカート → フレアスカート）。', how: '開く量（mm）と縫い代（mm）を入れて OK。プレビューで形を見られます。', note: '切り開き線は、直線で裾からウエストへ引き、役割を「切り開き線」にします。' },
     { no: '35', cat: 'pattern', r: 'aama', name: 'AAMA DXF 書き出し', what: '型紙を全部、1 つの .dxf（単位 mm）にする。', how: '保存先を聞かれたら選ぶ。聞かれないときはダウンロードフォルダーに保存。' },
 

@@ -22,15 +22,19 @@
     const img = document.createElement('img');
     img.src = 'img/' + fig.dataset.shot + '.png';
     img.alt = fig.dataset.alt || fig.querySelector('figcaption')?.textContent.trim().split('\n')[0] || '';
-    img.loading = 'lazy';
+    img.loading = 'eager';   // 印刷（PDF）でも全部の画像が出るように
     img.style.width = (shot.w / cw * 100) + '%';
     img.style.left = (-cx / cw * 100) + '%';
     img.style.top = (-cy / ch * 100) + '%';
     clipEl.appendChild(img);
     (fig.dataset.marks || '').split(',').filter(Boolean).forEach((m) => {
       const i = m.lastIndexOf(':');
-      const r = rectOf(shot, m.slice(0, i));
+      let r = rectOf(shot, m.slice(0, i));
       if (!r) return;
+      // 見せる範囲からはみ出す枠は、範囲の中に収める（はみ出しすぎるものは描かない）
+      const x0 = Math.max(r[0], cx), y0 = Math.max(r[1], cy), x1 = Math.min(r[0] + r[2], cx + cw), y1 = Math.min(r[1] + r[3], cy + ch);
+      if (x1 - x0 < 4 || y1 - y0 < 4) return;
+      r = [x0, y0, x1 - x0, y1 - y0];
       const pad = 4;
       const el = document.createElement('div');
       el.className = 'mk';

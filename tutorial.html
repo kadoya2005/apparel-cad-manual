@@ -1,0 +1,253 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>見本ができるまで｜アパレルCAD マニュアル</title>
+<link rel="stylesheet" href="style.css?v=13">
+<style>
+.wrapT { max-width: 1180px; margin: 0 auto; padding: 22px 18px 80px; }
+.hero { background: var(--panel); border: 1px solid var(--line); border-radius: 12px; padding: 22px 26px; margin-bottom: 18px; }
+.hero h2 { margin: 0 0 4px; font-size: 24px; }
+.hero p { margin: 4px 0; }
+.links { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-top: 12px; }
+.links a { display: block; border: 1px solid var(--line); border-radius: 10px; padding: 10px 14px; text-decoration: none; color: var(--ink); background: #fafbfc; }
+.links a:hover { border-color: var(--blue); background: #eef6ff; }
+.links a b { display: block; color: #1a5fd6; font-size: 15px; }
+.links a span { font-size: 12.5px; color: var(--dim); }
+/* 全体の流れ（小さな写真の帯） */
+.strip { display: grid; grid-template-columns: repeat(6, 1fr); gap: 10px; margin: 6px 0 18px; }
+.strip a { text-decoration: none; color: var(--ink); font-size: 12.5px; line-height: 1.35; }
+.strip a figure { margin: 0 0 4px; }
+.strip a figure .shot { margin-left: 0; border-radius: 6px; box-shadow: none; }
+.strip a figure .shot .clip { border-radius: 6px; }
+.strip a b { display: inline-flex; width: 20px; height: 20px; border-radius: 50%; background: var(--acc); color: #fff; font-size: 11.5px; align-items: center; justify-content: center; margin-right: 4px; }
+.strip a:hover figure .shot { outline: 2px solid var(--acc); }
+/* 手順 */
+.step { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); gap: 22px; background: var(--panel); border: 1px solid var(--line); border-radius: 12px; padding: 20px 22px; margin-bottom: 16px; scroll-margin-top: 70px; }
+.step .txt h3 { margin: 0 0 6px; font-size: 18px; display: flex; gap: 10px; align-items: center; }
+.step .txt h3 i { flex: none; font-style: normal; width: 32px; height: 32px; border-radius: 50%; background: var(--acc); color: #fff; display: inline-flex; align-items: center; justify-content: center; font-size: 15px; }
+.step .txt p { margin: 6px 0; }
+.step .txt .do { background: #f4f6f9; border-radius: 8px; padding: 8px 12px; margin: 8px 0; font-size: 14.5px; }
+.step .txt .do ol { margin: 0; padding-left: 20px; }
+.step figure { margin: 0; }
+.part { break-after: avoid; font-size: 13px; font-weight: 700; color: var(--acc); letter-spacing: .05em; margin: 22px 0 8px; }
+@media screen and (max-width: 900px) {
+  .links { grid-template-columns: 1fr; }
+  .strip { grid-template-columns: repeat(3, 1fr); }
+  .step { grid-template-columns: 1fr; padding: 16px; }
+}
+@media print {
+  .wrapT { padding: 0; }
+  .hero, .step { border: 0; padding: 0 0 4mm; }
+  .step { grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); break-inside: avoid; }
+  .strip { grid-template-columns: repeat(6, 1fr); }
+}
+</style>
+</head>
+<body>
+<header class="top">
+  <h1>アパレルCAD マニュアル<small>型紙CAD の試作（ver 11）</small></h1>
+  <nav>
+    <a href="concept.html">概要</a>
+    <a href="quickstart.html">クイックスタート</a>
+    <a href="tutorial.html" class="on">見本ができるまで</a>
+    <a href="guide.html">使い方ガイド</a>
+    <a href="index.html">画面の場所</a>
+  </nav>
+  <span class="grow"></span>
+  <span class="pdfs">PDF：<a href="concept.pdf" target="_blank">概要</a><a href="quickstart.pdf" target="_blank">クイックスタート</a><a href="tutorial.pdf" target="_blank">見本ができるまで</a><a href="guide.pdf" target="_blank">ガイド</a></span>
+</header>
+
+<div class="wrapT">
+  <section class="hero">
+    <h2>見本ができるまで（白紙 → フレアスカート）</h2>
+    <p>白紙から前スカートを 1 枚描き、縫い代を付けて型紙にまとめ、切り開いてフレアスカートにし、AAMA DXF に書き出すまでを、12 の手順で見ます。画面の写真は、実際にこの手順どおりに操作して撮ったものです。</p>
+    <div class="links">
+      <a href="https://kadoya2005.github.io/apparel-cad/?sample=tight" target="_blank"><b>▶ タイトスカートの見本を開く</b><span>手順 8 までが終わった状態（前・後ろ）</span></a>
+      <a href="https://kadoya2005.github.io/apparel-cad/?sample=flare" target="_blank"><b>▶ フレアスカートの見本を開く</b><span>手順 11 までが終わった状態（前・後ろ）</span></a>
+      <a href="https://github.com/kadoya2005/apparel-cad/tree/main/samples" target="_blank"><b>⬇ 見本のファイル（.icad・.dxf）</b><span>アプリで開くファイルと、CREACOMPO II などで開く DXF</span></a>
+    </div>
+  </section>
+
+  <div class="part">全体の流れ（写真を押すと、その手順へ）</div>
+  <div class="strip">
+    <a href="#s1"><figure data-shot="t01" data-crop="440,40,660,800"></figure><b>1</b>紙を用意</a>
+    <a href="#s2"><figure data-shot="t02" data-crop="440,40,660,800"></figure><b>2</b>縫い線を描く</a>
+    <a href="#s3"><figure data-shot="t03" data-crop="440,40,660,800"></figure><b>3</b>ダーツ・布目線</a>
+    <a href="#s4"><figure data-shot="t04" data-crop="440,40,660,800"></figure><b>4</b>役割を付ける</a>
+    <a href="#s5"><figure data-shot="t06" data-crop="440,40,660,800"></figure><b>5</b>縫い代を付ける</a>
+    <a href="#s6"><figure data-shot="t07" data-crop="440,40,660,800"></figure><b>6</b>ノッチを入れる</a>
+    <a href="#s7"><figure data-shot="t08" data-crop="440,40,660,800"></figure><b>7</b>1 枚にまとめる</a>
+    <a href="#s8"><figure data-shot="t09" data-crop="440,40,660,800"></figure><b>8</b>切り開き線</a>
+    <a href="#s9"><figure data-shot="t10" data-crop="440,40,660,800"></figure><b>9</b>開く量を入れる</a>
+    <a href="#s10"><figure data-shot="t11" data-crop="440,40,660,800"></figure><b>10</b>フレアになった</a>
+    <a href="#s11"><figure data-shot="t12" data-crop="1150,30,290,352"></figure><b>11</b>書き出す</a>
+    <a href="#s12"><figure data-shot="t12" data-crop="440,40,660,800"></figure><b>12</b>型紙CAD で開く</a>
+  </div>
+
+  <div class="part">A．型紙を描く</div>
+  <section class="step" id="s1">
+    <div class="txt">
+      <h3><i>1</i>紙を用意する</h3>
+      <p>型紙は実物大で描きます。スカート 1 枚（丈 60cm ほど）が入るように、作業する紙（アートボード）を大きくします。</p>
+      <div class="do"><ol>
+        <li>上の「<b>新規</b>」を押す</li>
+        <li>右のパネルの下のほう、「<b>アートボード</b>」の幅に <code>1133.86</code>、高さに <code>1984.25</code> を入れる（400×700mm）</li>
+        <li><kbd>Ctrl</kbd>+<kbd>0</kbd> で全体を表示</li>
+      </ol></div>
+      <p class="note">アートボードの欄は pt（ポイント）で入れます。1mm ＝ 2.835pt です。</p>
+    </div>
+    <figure data-shot="t01" data-marks="new:1,board:2"></figure>
+  </section>
+
+  <section class="step" id="s2">
+    <div class="txt">
+      <h3><i>2</i>ペンで縫い線を描く</h3>
+      <p>縫い合わせる線（でき上がり線）を、ペンで一周描きます。左が前中心、右が脇です。</p>
+      <div class="do"><ol>
+        <li>ペン（<kbd>P</kbd>）を選ぶ</li>
+        <li>中心のウエスト → 脇のウエストをクリック</li>
+        <li>腰の高さで<b>下へドラッグ</b>すると、腰の丸みの曲線になる</li>
+        <li>脇の裾 → 中心の裾をクリック</li>
+        <li>最後に<b>始点</b>に重ね、「アンカー」と出たらクリックして閉じる</li>
+      </ol></div>
+    </div>
+    <figure data-shot="t02" data-crop="0,30,1080,840" data-marks="tool:1,curve:2"></figure>
+  </section>
+
+  <section class="step" id="s3">
+    <div class="txt">
+      <h3><i>3</i>ダーツと布目線を描く</h3>
+      <div class="do"><ol>
+        <li><kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>A</kbd> で選択をやめる</li>
+        <li>ペンでダーツを 3 点（ウエスト → 先 → ウエスト）。<kbd>Esc</kbd> で終わり</li>
+        <li>直線（<kbd>\</kbd>）で布目線を、裾のほうからウエストのほうへ 1 本</li>
+        <li><kbd>Ctrl</kbd>+<kbd>A</kbd> で全部選び、「塗り」を<b>なし</b>にする（線が重なっても見えるように）</li>
+      </ol></div>
+    </div>
+    <figure data-shot="t03" data-crop="420,40,1020,820" data-marks="dart:1,grain:2"></figure>
+  </section>
+
+  <section class="step" id="s4">
+    <div class="txt">
+      <h3><i>4</i>線に役割を付ける</h3>
+      <p>まだグループにしていないので、選択ツール（<kbd>V</kbd>）で 1 本ずつ選べます。選んで、右上の「<b>線</b>」で役割を選びます。</p>
+      <div class="do"><ol>
+        <li>一周した線 → <b>縫い線</b></li>
+        <li>ダーツ → <b>内部線</b></li>
+        <li>布目線 → <b>布目線</b>（写真はここ）</li>
+      </ol></div>
+    </div>
+    <figure data-shot="t04" data-crop="420,40,1020,820" data-marks="line:1,patRole:2"></figure>
+  </section>
+
+  <section class="step" id="s5">
+    <div class="txt">
+      <h3><i>5</i>縫い代を付ける</h3>
+      <p>縫い線の外側に、縫い代の幅で輪郭（裁断線）を自動で作ります。</p>
+      <div class="do"><ol>
+        <li>縫い線をクリックして選ぶ</li>
+        <li>型紙パネルの「<b>縫い代…</b>」を押す</li>
+        <li>縫い代（mm）を入れて OK。外側に輪郭ができる</li>
+      </ol></div>
+      <figure data-shot="t06" data-crop="610,70,200,200" style="max-width:300px"><figcaption>できあがり（脇のウエストのあたりを拡大）。外側が輪郭、内側が縫い線</figcaption></figure>
+    </div>
+    <figure data-shot="t05" data-crop="420,40,1020,820" data-marks="line:1,seam:2,field:3,ok:4"></figure>
+  </section>
+
+  <section class="step" id="s6">
+    <div class="txt">
+      <h3><i>6</i>ノッチ（合印）を入れる</h3>
+      <p>縫い合わせる位置の印です。見本では腰の高さの、脇と中心に入れます。</p>
+      <div class="do"><ol>
+        <li>直線（<kbd>\</kbd>）で、<b>輪郭の上から内側へ</b> 5mm ほど引く</li>
+        <li>「線」を <b>ノッチ（合印）</b> にする</li>
+        <li>もう 1 か所も同じように</li>
+      </ol></div>
+    </div>
+    <figure data-shot="t07" data-crop="420,40,1020,820" data-marks="n2:1,n1:2,patRole:3"></figure>
+  </section>
+
+  <section class="step" id="s7">
+    <div class="txt">
+      <h3><i>7</i>1 枚の型紙にまとめる</h3>
+      <div class="do"><ol>
+        <li>選択ツール（<kbd>V</kbd>）で <kbd>Ctrl</kbd>+<kbd>A</kbd>（全部選ぶ）</li>
+        <li><kbd>Ctrl</kbd>+<kbd>G</kbd>（グループ）。<b>1 つのグループが 1 枚の型紙</b>になる</li>
+        <li>「名前」に <code>前スカート</code>、「枚数」に <code>1</code></li>
+      </ol></div>
+      <p class="tip">ここまでで、タイトスカートの型紙ができました。後ろも同じように作ります（左右を反転するならリフレクト <kbd>O</kbd>）。</p>
+    </div>
+    <figure data-shot="t08" data-crop="420,40,1020,820" data-marks="piece:1,name:2,qty:3"></figure>
+  </section>
+
+  <div class="part">B．フレアスカートに展開する</div>
+  <section class="step" id="s8">
+    <div class="txt">
+      <h3><i>8</i>切り開き線を引く</h3>
+      <div class="do"><ol>
+        <li>選択をやめて（<kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>A</kbd>）、直線（<kbd>\</kbd>）で<b>裾からウエストへ</b>引く</li>
+        <li>「線」を<b>切り開き線</b>にする（オレンジになる）</li>
+        <li>見本では 2 本。ダーツにはかけない</li>
+      </ol></div>
+      <p class="note">引き始め（裾）が開く側、引き終わり（ウエスト）が支点になります。</p>
+    </div>
+    <figure data-shot="t09" data-crop="420,40,1020,820" data-marks="lines:1,patRole:2"></figure>
+  </section>
+
+  <section class="step" id="s9">
+    <div class="txt">
+      <h3><i>9</i>開く量を入れる</h3>
+      <div class="do"><ol>
+        <li>選択ツール（<kbd>V</kbd>）で型紙をクリックして選ぶ</li>
+        <li>型紙パネルの「<b>切り開き…</b>」</li>
+        <li>開く量（1 本あたり、裾で何 mm）を入れ、「プレビュー」で形を見て OK</li>
+      </ol></div>
+      <p>見本は 60mm × 2 本。裾は 245mm から 365mm に広がります。</p>
+    </div>
+    <figure data-shot="t10" data-crop="420,40,1020,820" data-marks="spread:1,open:2,ok:3"></figure>
+  </section>
+
+  <section class="step" id="s10">
+    <div class="txt">
+      <h3><i>10</i>フレアスカートになった</h3>
+      <ul>
+        <li>裾が扇のように開き、なめらかな曲線になる（①）</li>
+        <li>輪郭は、縫い代の幅で作り直される</li>
+        <li>中心側（布目線のある側）は動かない。ダーツ・ノッチもいっしょに動く</li>
+        <li>やり直すときは <kbd>Ctrl</kbd>+<kbd>Z</kbd></li>
+      </ul>
+    </div>
+    <figure data-shot="t11" data-crop="420,40,1020,820" data-marks="hem:1"></figure>
+  </section>
+
+  <div class="part">C．書き出して、型紙CAD で開く</div>
+  <section class="step" id="s11">
+    <div class="txt">
+      <h3><i>11</i>AAMA DXF に書き出す</h3>
+      <div class="do"><ol>
+        <li>「合印」と「文字」はふつうそのまま（①②）</li>
+        <li>青い「<b>AAMA DXF 書き出し</b>」（③）</li>
+        <li>保存先を選ぶ（聞かれなければダウンロードフォルダーに <code>名前_AAMA.dxf</code>）</li>
+      </ol></div>
+    </div>
+    <figure data-shot="t12" data-crop="1150,40,290,330" data-marks="notch:1,enc:2,aama:3"></figure>
+  </section>
+
+  <section class="step" id="s12">
+    <div class="txt">
+      <h3><i>12</i>型紙CAD で開く</h3>
+      <p>書き出した <code>.dxf</code> を、CREACOMPO II などの型紙CAD の画面にドラッグ＆ドロップします（つなぎ方は非公式です）。</p>
+      <p>右は、書き出した DXF の中身を線の種類ごとに色分けした図です（見本のフレアスカート、前・後ろ）。</p>
+      <p style="font-size:13.5px">
+        <span class="sw" style="color:#1d2129"></span>輪郭　<span class="sw" style="color:#8a94a6"></span>縫い線　<span class="sw" style="color:#2f6fff"></span>ダーツ　<span class="sw" style="color:#d93a2b"></span>布目線　<span class="dot" style="background:#0f9d58"></span>ノッチ　<span class="dot" style="background:#f08c00"></span>角
+      </p>
+    </div>
+    <figure><img class="zoomable" src="img/dxf-flare.svg" alt="書き出した DXF の中身" style="width:100%;border:1px solid #c9ced6;border-radius:10px;background:#fff"></figure>
+  </section>
+</div>
+<script src="shots.js?v=13"></script>
+<script src="fig.js?v=13"></script>
+</body>
+</html>

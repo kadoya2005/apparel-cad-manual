@@ -74,10 +74,11 @@ class CDP:
 
 def launch(width=1440, height=900, port=9333, dpr=1):
     exe = r'C:\Program Files (x86)\Microsoft\Edge\Application\msedge.exe'
-    prof = os.path.join(os.environ.get('TEMP', '.'), 'apparelcad-capture-profile')
+    prof = os.path.join(os.environ.get('TEMP', '.'), f'apparelcad-capture-profile-{port}')
     proc = subprocess.Popen([exe, '--headless=new', f'--remote-debugging-port={port}', f'--user-data-dir={prof}',
                              f'--window-size={width},{height}', f'--force-device-scale-factor={dpr}',
                              '--no-first-run', '--hide-scrollbars', 'about:blank'])
+    proc.profile = prof
     for _ in range(50):
         try:
             tabs = json.load(urllib.request.urlopen(f'http://127.0.0.1:{port}/json'))
@@ -88,4 +89,15 @@ def launch(width=1440, height=900, port=9333, dpr=1):
             return proc, c
         except Exception:
             time.sleep(0.3)
+    close(proc)
     raise RuntimeError('Edge did not start')
+
+
+def close(proc):
+    """Edge を子プロセスごと閉じる（proc.kill() だけだと Windows では子プロセスが残る）"""
+    subprocess.run(['taskkill', '/T', '/F', '/PID', str(proc.pid)], capture_output=True)
+    # Edge は起動後に別のプロセスへ引き継ぐので、このプロファイルを使っているものを全部止める
+    name = os.path.basename(getattr(proc, 'profile', 'apparelcad-capture-profile'))
+    ps = ("Get-CimInstance Win32_Process -Filter \"Name='msedge.exe'\" | Where-Object { $_.CommandLine -like '*%s*' } | "
+          "ForEach-Object { Stop-Process -Id $_.ProcessId -Force -ErrorAction SilentlyContinue }" % name)
+    subprocess.run(['powershell', '-NoProfile', '-Command', ps], capture_output=True)

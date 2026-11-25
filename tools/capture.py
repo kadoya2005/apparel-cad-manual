@@ -6,7 +6,7 @@
 # Edge を画面なしで起動し、本物のマウス操作を送って、manual/img/ に PNG を、manual/shots.js に枠の位置を書きます。
 import json, os, struct, sys, time
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
-from cdp import launch
+from cdp import launch, close
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))   # manual/
 IMG = os.path.join(ROOT, 'img')
@@ -25,8 +25,21 @@ window.__ptRect = (pts, pad = 10) => { const xs = pts.map(p => p[0]), ys = pts.m
 1
 """
 
+def save_shots(shots):
+    """shots.js に書く。ほかのスクリプト（capture_tutorial.py）が撮った分は残して、同じ名前だけ入れ替える"""
+    path = os.path.join(ROOT, 'shots.js')
+    allv = {}
+    if os.path.exists(path):
+        t = open(path, encoding='utf-8').read()
+        allv = json.loads(t[t.index('=') + 1:t.rindex(';')])
+    allv.update(shots)
+    with open(path, 'w', encoding='utf-8') as f:
+        f.write('// manual/tools/capture.py・capture_tutorial.py が書き出す、キャプチャの大きさと枠の位置（CSS px）\n')
+        f.write('window.SHOTS = ' + json.dumps(allv, ensure_ascii=False, indent=1) + ';\n')
+
 def main():
     proc, c = launch(W, H, dpr=DPR)
+    c.call('Network.enable'); c.call('Network.setCacheDisabled', {'cacheDisabled': True})
     shots = {}
     try:
         def go():
@@ -77,7 +90,7 @@ def main():
           o.colors = __R('#colorWell') || __U(['#swFill', '#btnNone']);
           o.canvas = __R('#board'); o.status = __R('#status');
           o.patSample = __R('#btnPatSample'); o.patRole = __R('#patRole'); o.patName = __R('#patName'); o.patQty = __R('#patQty');
-          o.patNotch = __R('#patNotchMode'); o.patEnc = __R('#patEncoding'); o.spread = __R('#btnSpread'); o.aama = __R('#btnAama');
+          o.patNotch = __R('#patNotchMode'); o.patEnc = __R('#patEncoding'); o.spread = __R('#btnSpread'); o.seam = __R('#btnSeam'); o.aama = __R('#btnAama');
           const secs = [...document.querySelectorAll('#panels section')];
           ['pattern', 'fillstroke', 'transform', 'align', 'pathfinder', 'artboard', 'layers'].forEach((k, i) => { o['sec_' + k] = __R(secs[i]); });
           return o; })()""")
@@ -133,12 +146,10 @@ def main():
         # ---- 6. 書き出し（型紙パネル）----
         clip = c.js("(() => { const r = __R('#panels section'); return [r[0], r[1], r[2], r[3]]; })()")
         rel = lambda r: [r[0] - clip[0], r[1] - clip[1], r[2], r[3]]
-        shot('panel', {k: rel(R(s)) for k, s in [('sample', '#btnPatSample'), ('role', '#patRole'), ('name', '#patName'), ('qty', '#patQty'), ('notch', '#patNotchMode'), ('enc', '#patEncoding'), ('spread', '#btnSpread'), ('aama', '#btnAama')]}, clip=clip)
+        shot('panel', {k: rel(R(s)) for k, s in [('sample', '#btnPatSample'), ('role', '#patRole'), ('name', '#patName'), ('qty', '#patQty'), ('notch', '#patNotchMode'), ('enc', '#patEncoding'), ('spread', '#btnSpread'), ('seam', '#btnSeam'), ('aama', '#btnAama')]}, clip=clip)
     finally:
-        proc.kill()
-    with open(os.path.join(ROOT, 'shots.js'), 'w', encoding='utf-8') as f:
-        f.write('// manual/tools/capture.py が書き出す、キャプチャの大きさと枠の位置（CSS px）\n')
-        f.write('window.SHOTS = ' + json.dumps(shots, ensure_ascii=False, indent=1) + ';\n')
+        close(proc)
+    save_shots(shots)
     print('done', list(shots))
 
 if __name__ == '__main__':
