@@ -1,11 +1,10 @@
-**日本語: [README.ja.md](README.ja.md)**
+# アパレルCAD マニュアル（移転しました）
 
-# Apparel CAD manual (Japanese)
+マニュアルは、アプリのリポジトリに移りました。
 
-> ### 📘 Manual: **https://kadoya2005.github.io/apparel-cad-manual/**
+- マニュアル：**https://kadoya2005.github.io/apparel-cad/manual/**
+- アプリ：https://kadoya2005.github.io/apparel-cad/ ／ https://github.com/kadoya2005/apparel-cad
 
-**Apparel CAD** is a prototype, browser-based pattern-making tool that works like Adobe Illustrator. You draw garment patterns, mark each line's role (cut line, sew line, darts, grain line, notches), spread patterns (slash and spread, e.g. a straight skirt into a flared skirt), and export AAMA DXF for other pattern CAD software.
+このリポジトリのページ（https://kadoya2005.github.io/apparel-cad-manual/ …）を開くと、新しい場所の同じページへ自動で移ります。
 
-The manual is written in Japanese. Try the app: https://kadoya2005.github.io/apparel-cad/ — source: https://github.com/kadoya2005/apparel-cad
-
-Not affiliated with Adobe Illustrator or CREACOMPO II.
+The manual has moved to https://kadoya2005.github.io/apparel-cad/manual/ . Old links redirect automatically.
