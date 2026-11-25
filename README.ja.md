@@ -16,6 +16,7 @@
 | [使い方ガイド](https://kadoya2005.github.io/apparel-cad-manual/guide.html) | キャプチャと図で、手順ごとの使い方 |
 | [画面の場所](https://kadoya2005.github.io/apparel-cad-manual/) | 番号を押すと、画面のその場所が赤い枠で光る |
 
-このリポジトリはマニュアルだけを公開しています。アプリ本体は試作中のため、まだ公開していません。
+> ### ▶ すぐ試す：**https://kadoya2005.github.io/apparel-cad/**（ブラウザで開くだけ）
+> ### 💾 アプリ本体：**https://github.com/kadoya2005/apparel-cad**（緑の「Code」→「Download ZIP」）
 
 Adobe Illustrator、CREACOMPO II とは関係のない、非公式のツールです。
