@@ -1,0 +1,296 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>使い方ガイド｜アパレルCAD マニュアル</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header class="top">
+  <h1>アパレルCAD マニュアル<small>型紙CAD の試作（ver 10）</small></h1>
+  <nav>
+    <a href="concept.html">概要</a>
+    <a href="guide.html" class="on">使い方ガイド</a>
+    <a href="index.html">画面の場所</a>
+  </nav>
+  <span class="grow"></span>
+  <span class="sub">画像はクリックで大きく表示</span>
+</header>
+
+<div class="doc">
+  <aside class="toc">
+    <b>もくじ</b>
+    <a href="#flow">全体の流れ</a>
+    <a href="#start">1. はじめる</a>
+    <a href="#parts">2. 型紙の各部の名前</a>
+    <a href="#draw">3. 線を描く</a>
+    <a href="#role">4. 型紙にまとめる</a>
+    <a href="#spread">5. 切り開き</a>
+    <a href="#spread-1" class="sub">切り開き線を引く</a>
+    <a href="#spread-2" class="sub">開く量を入れる</a>
+    <a href="#spread-3" class="sub">できあがり</a>
+    <a href="#export">6. DXF に書き出す</a>
+    <a href="#creacompo">7. CREACOMPO II で開く</a>
+    <a href="#trouble">困ったとき</a>
+    <a href="#keys">ショートカット</a>
+    <a href="#words">用語集</a>
+  </aside>
+
+  <article>
+    <!-- 全体の流れ -->
+    <section id="flow">
+      <h2>全体の流れ</h2>
+      <p class="lead">型紙は、線を描いて 1 枚ずつまとめ、線に役割を付けてから書き出します。展開（切り開き）は必要なときだけです。</p>
+      <svg class="dia" viewBox="0 0 760 300" role="img" aria-label="型紙ができるまでの6つの手順">
+        <defs><marker id="ar" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5L0 10z" fill="#8a94a6"/></marker></defs>
+        <g font-family="Yu Gothic UI, Hiragino Sans, Meiryo, sans-serif" text-anchor="middle">
+          <g><rect x="20" y="30" width="210" height="96" rx="12" fill="#fff" stroke="#c3c9d2" stroke-width="1.5"/><circle cx="48" cy="58" r="15" fill="#1d2129"/><text x="48" y="64" fill="#fff" font-size="16" font-weight="800">1</text><text x="138" y="64" font-size="18" font-weight="700" fill="#1d2129">線を描く</text><text x="125" y="96" font-size="13.5" fill="#5f6b7d">ペン・直線（イラレと同じ）</text></g>
+          <g><rect x="275" y="30" width="210" height="96" rx="12" fill="#fff" stroke="#c3c9d2" stroke-width="1.5"/><circle cx="303" cy="58" r="15" fill="#1d2129"/><text x="303" y="64" fill="#fff" font-size="16" font-weight="800">2</text><text x="393" y="64" font-size="18" font-weight="700" fill="#1d2129">1 枚にまとめる</text><text x="380" y="96" font-size="13.5" fill="#5f6b7d">Ctrl+G でグループ</text></g>
+          <g><rect x="530" y="30" width="210" height="96" rx="12" fill="#fff" stroke="#c3c9d2" stroke-width="1.5"/><circle cx="558" cy="58" r="15" fill="#1d2129"/><text x="558" y="64" fill="#fff" font-size="16" font-weight="800">3</text><text x="648" y="64" font-size="18" font-weight="700" fill="#1d2129">役割を付ける</text><text x="635" y="96" font-size="13.5" fill="#5f6b7d">輪郭・縫い線・ノッチ…</text></g>
+          <g><rect x="530" y="180" width="210" height="96" rx="12" fill="#fff1ee" stroke="#d6402b" stroke-width="1.5" stroke-dasharray="6 4"/><circle cx="558" cy="208" r="15" fill="#d6402b"/><text x="558" y="214" fill="#fff" font-size="16" font-weight="800">4</text><text x="648" y="214" font-size="18" font-weight="700" fill="#1d2129">展開する</text><text x="635" y="246" font-size="13.5" fill="#5f6b7d">切り開き（必要なとき）</text></g>
+          <g><rect x="275" y="180" width="210" height="96" rx="12" fill="#fff" stroke="#c3c9d2" stroke-width="1.5"/><circle cx="303" cy="208" r="15" fill="#1d2129"/><text x="303" y="214" fill="#fff" font-size="16" font-weight="800">5</text><text x="393" y="214" font-size="18" font-weight="700" fill="#1d2129">書き出す</text><text x="380" y="246" font-size="13.5" fill="#5f6b7d">AAMA DXF（mm）</text></g>
+          <g><rect x="20" y="180" width="210" height="96" rx="12" fill="#eef6ff" stroke="#2f6fff" stroke-width="1.5"/><circle cx="48" cy="208" r="15" fill="#2f6fff"/><text x="48" y="214" fill="#fff" font-size="16" font-weight="800">6</text><text x="138" y="214" font-size="18" font-weight="700" fill="#1d2129">型紙CAD で開く</text><text x="125" y="246" font-size="13.5" fill="#5f6b7d">CREACOMPO II など</text></g>
+          <g fill="none" stroke="#8a94a6" stroke-width="2"><path d="M232 78H271" marker-end="url(#ar)"/><path d="M487 78H526" marker-end="url(#ar)"/><path d="M635 128V176" marker-end="url(#ar)"/><path d="M528 228H489" marker-end="url(#ar)"/><path d="M273 228H234" marker-end="url(#ar)"/></g>
+        </g>
+      </svg>
+    </section>
+
+    <!-- 1. はじめる -->
+    <section id="start">
+      <h2><span class="num">1</span>はじめる</h2>
+      <p class="lead">インストールは要りません。<code>index.html</code> を Chrome か Edge で開くだけで動きます。</p>
+      <div class="note">アプリ本体は試作中のため、いまは関係者にだけ配っています（このマニュアルだけを公開しています）。</div>
+      <ol class="steps">
+        <li><code>apparel-cad</code> フォルダーの <code>index.html</code> を、Chrome か Edge の画面へドラッグする</li>
+        <li>左上に「アパレルCAD ver ○」と出れば準備完了。番号が古いままなら <kbd>Ctrl</kbd>+<kbd>F5</kbd></li>
+        <li>はじめてなら、右上の <b class="key">「見本を開く」</b>（①）を押す。タイトスカートの前・後ろ（半身）が出ます</li>
+      </ol>
+      <figure data-shot="app" data-marks="patSample:1,sec_pattern:2,tool_select:3,canvas:4">
+        <figcaption>見本を開いたところ
+          <ol><li><span class="n">1</span>見本を開く</li><li><span class="n">2</span>型紙パネル：線の役割・名前・枚数・切り開き・書き出しは全部ここ</li><li><span class="n">3</span>ツール（イラレと同じ並び）</li><li><span class="n">4</span>作業する紙（アートボード）</li></ol>
+        </figcaption>
+      </figure>
+      <div class="tip">画面の拡大・移動もイラレと同じです。<kbd>Ctrl</kbd>+<kbd>Space</kbd>＋クリックで拡大、<kbd>Space</kbd>＋ドラッグで移動、<kbd>Ctrl</kbd>+<kbd>0</kbd> で全体。</div>
+      <h3>保存</h3>
+      <p><kbd>Ctrl</kbd>+<kbd>S</kbd> で <code>.icad</code>（このアプリの形式）に保存します。線の役割や名前もそのまま残ります。作業中の内容はブラウザにも自動で残りますが、大事な型紙は必ず保存してください。作り直したときは <code>前スカート_v2</code> のように番号を付けて保存すると安心です。</p>
+    </section>
+
+    <!-- 2. 型紙の各部の名前 -->
+    <section id="parts">
+      <h2><span class="num">2</span>型紙の各部の名前</h2>
+      <p class="lead">このアプリでは、型紙の線それぞれに「役割」を付けます。役割ごとに、書き出したときの扱いが変わります。</p>
+      <svg class="dia" viewBox="0 0 760 470" role="img" aria-label="スカートの型紙の各部の名前">
+        <g font-family="Yu Gothic UI, Hiragino Sans, Meiryo, sans-serif" font-size="14">
+          <path d="M200 60 Q300 56 420 46 Q440 120 444 170 L444 430 L200 430 Z" fill="#f6f7f9" stroke="#1d2129" stroke-width="2.5"/>
+          <path d="M215 78 Q305 74 410 66 Q426 130 429 175 L429 415 L215 415 Z" fill="#fff" stroke="#8a94a6" stroke-width="1.6" stroke-dasharray="7 5"/>
+          <path d="M290 72 L300 170 L310 71" fill="none" stroke="#2f6fff" stroke-width="2"/>
+          <line x1="250" y1="380" x2="250" y2="140" stroke="#d93a2b" stroke-width="2.5"/><path d="M250 132 l-7 14 h14 z M250 388 l-7 -14 h14 z" fill="#d93a2b"/>
+          <line x1="444" y1="200" x2="432" y2="200" stroke="#0f9d58" stroke-width="4"/><line x1="200" y1="200" x2="212" y2="200" stroke="#0f9d58" stroke-width="4"/>
+          <g fill="#1d2129">
+            <text x="470" y="60" font-weight="700">輪郭（裁断線）</text><text x="470" y="80" fill="#5f6b7d" font-size="12.5">この線で布を裁つ。縫い代を含む</text>
+            <text x="470" y="128" font-weight="700">縫い線（でき上がり線）</text><text x="470" y="148" fill="#5f6b7d" font-size="12.5">ここを縫い合わせる</text>
+            <text x="470" y="206" font-weight="700" fill="#0f9d58">ノッチ（合印）</text><text x="470" y="226" fill="#5f6b7d" font-size="12.5">縫い合わせる2枚の位置を合わせる印</text>
+            <text x="470" y="290" font-weight="700" fill="#2f6fff">内部線（ダーツ）</text><text x="470" y="310" fill="#5f6b7d" font-size="12.5">体の丸みに合わせて布をつまむ</text>
+            <text x="470" y="372" font-weight="700" fill="#d93a2b">布目線（地の目）</text><text x="470" y="392" fill="#5f6b7d" font-size="12.5">布のたて糸の向き。型紙を置く向き</text>
+            <text x="40" y="250" font-weight="700">縫い代</text><text x="40" y="270" fill="#5f6b7d" font-size="12.5">縫い線と輪郭の</text><text x="40" y="288" fill="#5f6b7d" font-size="12.5">あいだ（例 10mm）</text>
+            <text x="322" y="458" text-anchor="middle" fill="#5f6b7d" font-size="12.5">前スカート（半身）。左が中心、右が脇</text>
+          </g>
+          <g fill="none" stroke="#b6bcc6" stroke-width="1">
+            <path d="M462 56 H430 L426 70"/><path d="M462 124 H418 L414 92"/><path d="M462 202 H448"/><path d="M462 286 H330 L304 150"/><path d="M462 368 H262"/><path d="M110 258 H204"/>
+          </g>
+        </g>
+      </svg>
+      <table class="t">
+        <tr><th>役割</th><th>意味</th><th>DXF では</th></tr>
+        <tr><td><span class="sw" style="color:#1d2129"></span>輪郭（裁断線）</td><td>布を裁つ線</td><td>画層 1</td></tr>
+        <tr><td><span class="sw" style="color:#8a94a6"></span>縫い線</td><td>縫い合わせる線</td><td>画層 14</td></tr>
+        <tr><td><span class="sw" style="color:#2f6fff"></span>内部線</td><td>ダーツなど、型紙の中の線</td><td>画層 8</td></tr>
+        <tr><td><span class="sw" style="color:#d93a2b"></span>布目線</td><td>型紙を置く向き</td><td>画層 7</td></tr>
+        <tr><td><span class="dot" style="background:#0f9d58"></span>ノッチ（合印）</td><td>縫い合わせる位置の印</td><td>画層 4</td></tr>
+        <tr><td><span class="sw" style="color:#ff7a00"></span>切り開き線</td><td>展開するときに切る線（作図用）</td><td>書き出さない</td></tr>
+        <tr><td>自動</td><td>決めていない線</td><td>いちばん大きい閉じた線が輪郭、ほかは内部線</td></tr>
+      </table>
+    </section>
+
+    <!-- 3. 線を描く -->
+    <section id="draw">
+      <h2><span class="num">3</span>線を描く</h2>
+      <p class="lead">描き方はイラレと同じです。縫い線・輪郭はペン、布目線とノッチは直線で描きます。</p>
+      <figure data-shot="pen" data-crop="0,0,1150,880" data-marks="tool:1,curve:2,start:3">
+        <figcaption>ペンで縫い線を描いているところ
+          <ol><li><span class="n">1</span>ペンツール（<kbd>P</kbd>）</li><li><span class="n">2</span>ドラッグすると曲線になる（ウエストの丸み）</li><li><span class="n">3</span>最後に始点に重ねると「アンカー」と出る。ここをクリックして閉じる</li></ol>
+        </figcaption>
+      </figure>
+      <table class="t">
+        <tr><th>描くもの</th><th>道具</th><th>こつ</th></tr>
+        <tr><td>縫い線・輪郭</td><td>ペン <kbd>P</kbd></td><td>クリックで角、ドラッグで曲線。最後に始点をクリックして閉じる</td></tr>
+        <tr><td>ダーツ</td><td>ペン <kbd>P</kbd></td><td>山形に 3 点。閉じなくてよい</td></tr>
+        <tr><td>布目線</td><td>直線 <kbd>\</kbd></td><td>布のたて糸の向きに 1 本。<kbd>Shift</kbd> でまっすぐ</td></tr>
+        <tr><td>ノッチ</td><td>直線 <kbd>\</kbd></td><td>輪郭の上から内側へ 5mm ほど</td></tr>
+      </table>
+      <div class="note">新しい線は塗りが白です。重なると下の線が隠れるので、描いたら全部選んで「塗り」を <b>なし</b> にしてください。<br>閉じるときに始点から少しでもずれると、閉じずに線が続きます。そのときは <kbd>Ctrl</kbd>+<kbd>Z</kbd>。</div>
+    </section>
+
+    <!-- 4. 型紙にまとめる -->
+    <section id="role">
+      <h2><span class="num">4</span>型紙にまとめる</h2>
+      <p class="lead">1 枚の型紙の線をグループにし、線ごとに役割を付け、名前と枚数を入れます。</p>
+      <ol class="steps">
+        <li>選択ツール（<kbd>V</kbd>）で 1 枚分の線を全部選び、<kbd>Ctrl</kbd>+<kbd>G</kbd>。<b class="key">1 つのグループが 1 枚の型紙</b>になります</li>
+        <li><b class="key">ダイレクト選択（<kbd>A</kbd>）</b>で線を 1 本クリックし、型紙パネルの「線」で役割を選ぶ</li>
+        <li>型紙の中の線をどれか選んだまま、「名前」と「枚数」を入れる（例：袖なら左右で 2）</li>
+      </ol>
+      <figure data-shot="role" data-crop="430,30,1010,800" data-marks="line:1,patRole:2,patName:3,patQty:4">
+        <figcaption>縫い線をダイレクト選択で選んだところ
+          <ol><li><span class="n">1</span>ダイレクト選択（<kbd>A</kbd>）でクリックした線。縫い線が青く選ばれる</li><li><span class="n">2</span>線の役割。ここでは「縫い線」</li><li><span class="n">3</span>パーツ名（DXF にそのまま渡る）</li><li><span class="n">4</span>裁断する枚数</li></ol>
+        </figcaption>
+      </figure>
+      <div class="note">選択ツール（<kbd>V</kbd>）でクリックするとグループ全体が選ばれ、役割が全部の線に付いてしまいます。役割を付けるときは必ずダイレクト選択（<kbd>A</kbd>）です。</div>
+    </section>
+
+    <!-- 5. 切り開き -->
+    <section id="spread">
+      <h2><span class="num">5</span>切り開き（タイトスカート → フレアスカート）</h2>
+      <p class="lead">型紙に線を入れて切り、扇のように開いて裾を広げます。見本では、切り開き線 2 本を 60mm ずつ開くと、裾が 245mm から 365mm になります。</p>
+
+      <h3 id="spread-1">① 切り開き線を引く</h3>
+      <ol class="steps">
+        <li>直線ツール（<kbd>\</kbd>）で、<b class="key">裾からウエストへ</b>向けて線を引く。引き始めが「開く側」、引き終わりが「支点」になります</li>
+        <li>引いた線の「線」を <b class="key">切り開き線</b> にする。オレンジの線に変わります</li>
+        <li>何本でも引けます。ダーツにはかからないようにします</li>
+      </ol>
+      <figure data-shot="slash" data-crop="430,30,1010,800" data-marks="lines:1,patRole:2">
+        <figcaption>切り開き線を 2 本引いたところ（オレンジの線と、選ばれている青い線）
+          <ol><li><span class="n">1</span>直線ツール（<kbd>\</kbd>）で引いた切り開き線。裾の端は縫い線の上に置く（1.5cm まで離れていても自動で乗せる）</li><li><span class="n">2</span>線の役割を「切り開き線」に</li></ol>
+        </figcaption>
+      </figure>
+
+      <h3 id="spread-2">② 開く量を入れる</h3>
+      <ol class="steps">
+        <li>選択ツール（<kbd>V</kbd>）で型紙をクリックして選ぶ</li>
+        <li>型紙パネルの <b class="key">「切り開き…」</b> を押す</li>
+        <li><b>開く量</b>（1 本あたり、裾で何 mm 開くか）と <b>縫い代</b> を入れる。「プレビュー」で形を見てから OK</li>
+      </ol>
+      <figure data-shot="dialog" data-crop="430,30,1010,800" data-marks="spread:1,open:2,seam:3,preview:4,ok:5">
+        <figcaption>切り開きのダイアログ。後ろにプレビューの形が見えています
+          <ol><li><span class="n">1</span>切り開き…</li><li><span class="n">2</span>開く量（mm・裾で）</li><li><span class="n">3</span>縫い代（mm）。輪郭はこの幅で作り直す</li><li><span class="n">4</span>プレビュー</li><li><span class="n">5</span>OK（やり直しは <kbd>Ctrl</kbd>+<kbd>Z</kbd>）</li></ol>
+        </figcaption>
+      </figure>
+
+      <h3 id="spread-3">③ できあがり</h3>
+      <div class="pair">
+        <figure data-shot="slash" data-crop="410,40,720,780"><figcaption>切り開く前（タイトスカート）</figcaption></figure>
+        <figure data-shot="flare" data-crop="360,40,720,780"><figcaption>切り開いたあと（フレアスカート）</figcaption></figure>
+      </div>
+      <ul>
+        <li>縫い線を切り開き線で区切り、ウエスト側の支点を中心に回して開きます。<b>布目線のある区画（中心側）は動きません</b></li>
+        <li>開いた裾と支点のところは、なめらかな曲線につなぎ直します。ウエストの長さは変わりません</li>
+        <li>輪郭は、新しい縫い線から縫い代の幅で作り直します。角は線を延ばして交わる点でとがらせます</li>
+        <li>ダーツ・布目線・ノッチは、のっている区画といっしょに動きます。切り開き線は使い終わると消えます</li>
+      </ul>
+      <div class="note">いまはダーツを残したまま裾だけ開きます。ダーツをたたんで裾に開くやり方や、裾だけ縫い代を広くすることは、まだできません。</div>
+    </section>
+
+    <!-- 6. 書き出す -->
+    <section id="export">
+      <h2><span class="num">6</span>DXF に書き出す</h2>
+      <p class="lead">青い「AAMA DXF 書き出し」を押すと、型紙が全部 1 つの <code>.dxf</code>（単位 mm）にまとまります。</p>
+      <div class="pair">
+        <figure data-shot="panel" data-marks="notch:1,enc:2,aama:3">
+          <figcaption>型紙パネル
+            <ol><li><span class="n">1</span>合印：ふつうは「点」。うまく出なければ「線」</li><li><span class="n">2</span>文字：ふつうは「Shift_JIS」。名前が化けたら「UTF-8」</li><li><span class="n">3</span>AAMA DXF 書き出し</li></ol>
+          </figcaption>
+        </figure>
+        <figure>
+          <img class="zoomable" src="img/dxf-flare.svg" alt="書き出した DXF の中身" style="width:100%;border:1px solid #c9ced6;border-radius:10px;background:#fff">
+          <figcaption>書き出した DXF の中身（フレアスカートの見本）。
+            <span class="sw" style="color:#1d2129"></span>輪郭
+            <span class="sw" style="color:#8a94a6"></span>縫い線
+            <span class="sw" style="color:#2f6fff"></span>ダーツ
+            <span class="sw" style="color:#d93a2b"></span>布目線
+            <span class="dot" style="background:#0f9d58"></span>ノッチ
+            <span class="dot" style="background:#f08c00"></span>角
+          </figcaption>
+        </figure>
+      </div>
+      <p>保存先を聞かれたら選びます。聞かれないときは、ダウンロードフォルダーに <code>ファイル名_AAMA.dxf</code> ができます。</p>
+    </section>
+
+    <!-- 7. CREACOMPO II -->
+    <section id="creacompo">
+      <h2><span class="num">7</span>CREACOMPO II で開く</h2>
+      <p class="lead">書き出した <code>.dxf</code> を CREACOMPO II の画面にドラッグ＆ドロップします（つなぎ方は非公式です）。</p>
+      <ol class="steps">
+        <li>CREACOMPO II を起動する</li>
+        <li><code>.dxf</code> を画面にドラッグ＆ドロップする</li>
+        <li>下の点を確かめ、結果を記録しておく（スクリーンショットがあると、あとで直すときに役立ちます）</li>
+      </ol>
+      <table class="t">
+        <tr><th>確かめること</th><th>見本での答え</th></tr>
+        <tr><td>型紙が枚数どおりに分かれているか</td><td>前スカート・後ろスカートの 2 枚</td></tr>
+        <tr><td>寸法が合っているか</td><td>タイトスカートの前の輪郭：幅 265mm・丈 約620mm</td></tr>
+        <tr><td>ノッチ・縫い線・ダーツ・布目線が出ているか</td><td>ノッチは腰の高さ（脇と中心）</td></tr>
+        <tr><td>パーツ名と枚数が読めるか</td><td>前スカート・後ろスカート、各 1 枚</td></tr>
+      </table>
+      <p>試し用のファイルは <code>apparel-cad\samples</code> にあります。まず <code>型紙テスト_v1_A_標準.dxf</code> を試し、うまくいかなければ B〜D（ノッチを線で／日本語名 Shift_JIS／日本語名 UTF-8）を試してください。</p>
+    </section>
+
+    <!-- 困ったとき -->
+    <section id="trouble">
+      <h2>困ったとき</h2>
+      <table class="t">
+        <tr><th>こんなとき</th><th>こうする</th></tr>
+        <tr><td>ペンの線が閉じずに続いてしまった</td><td><kbd>Ctrl</kbd>+<kbd>Z</kbd> で戻し、始点に重ねて「アンカー」と出たらクリック</td></tr>
+        <tr><td>線が見えなくなった</td><td>塗りが白で重なっている。全部選んで「塗り」をなしに。<kbd>Ctrl</kbd>+<kbd>Y</kbd>（アウトライン）でも確かめられる</td></tr>
+        <tr><td>役割が全部の線に付いた</td><td>選択ツール（<kbd>V</kbd>）で選んでいた。<kbd>Ctrl</kbd>+<kbd>Z</kbd> で戻し、ダイレクト選択（<kbd>A</kbd>）で付け直す</td></tr>
+        <tr><td>「切り開き線がありません」と出る</td><td>引いた直線の「線」を「切り開き線」にしたか確かめる</td></tr>
+        <tr><td>「縫い線から離れすぎています」と出る</td><td>切り開き線の両端を、縫い線から 1.5cm 以内に置く</td></tr>
+        <tr><td>切り開いた形がおかしい</td><td><kbd>Ctrl</kbd>+<kbd>Z</kbd>。切り開き線は裾からウエストへ引き、ダーツにかけない</td></tr>
+        <tr><td>タイトルの版（ver）が古い</td><td><kbd>Ctrl</kbd>+<kbd>F5</kbd> で読み込み直す</td></tr>
+        <tr><td>CREACOMPO II で名前が文字化けする</td><td>「文字」を UTF-8 にして書き出し直す</td></tr>
+      </table>
+    </section>
+
+    <!-- ショートカット -->
+    <section id="keys">
+      <h2>ショートカット</h2>
+      <p class="lead">イラレと同じです。全部の一覧はアプリの「ショートカット一覧」（<kbd>F1</kbd>）にあります。</p>
+      <table class="t">
+        <tr><th>キー</th><th>できること</th><th>キー</th><th>できること</th></tr>
+        <tr><td><kbd>V</kbd></td><td>選択（グループごと）</td><td><kbd>Ctrl</kbd>+<kbd>G</kbd></td><td>グループ（1 枚の型紙に）</td></tr>
+        <tr><td><kbd>A</kbd></td><td>ダイレクト選択（1 本ずつ）</td><td><kbd>Ctrl</kbd>+<kbd>Z</kbd></td><td>元に戻す</td></tr>
+        <tr><td><kbd>P</kbd></td><td>ペン</td><td><kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>Z</kbd></td><td>やり直し</td></tr>
+        <tr><td><kbd>\</kbd></td><td>直線</td><td><kbd>Ctrl</kbd>+<kbd>S</kbd></td><td>保存</td></tr>
+        <tr><td><kbd>M</kbd> / <kbd>L</kbd></td><td>長方形 / 楕円形</td><td><kbd>Ctrl</kbd>+<kbd>O</kbd></td><td>開く</td></tr>
+        <tr><td><kbd>R</kbd> / <kbd>O</kbd> / <kbd>S</kbd></td><td>回転 / リフレクト / 拡大・縮小</td><td><kbd>Ctrl</kbd>+<kbd>0</kbd></td><td>全体を表示</td></tr>
+        <tr><td><kbd>Space</kbd>＋ドラッグ</td><td>画面を動かす</td><td><kbd>Ctrl</kbd>+<kbd>Y</kbd></td><td>アウトライン表示</td></tr>
+      </table>
+    </section>
+
+    <!-- 用語集 -->
+    <section id="words">
+      <h2>用語集</h2>
+      <table class="t">
+        <tr><th>言葉</th><th>意味</th></tr>
+        <tr><td>型紙（パターン）</td><td>服の各部分の形をうつした紙。これに合わせて布を裁つ</td></tr>
+        <tr><td>原型</td><td>体の形に合わせた、飾りのない基本の型紙</td></tr>
+        <tr><td>パターン展開</td><td>原型を切ったり開いたりして、デザインの型紙を作ること</td></tr>
+        <tr><td>切り開き</td><td>型紙に線を入れて切り、扇のように開いて広げる展開</td></tr>
+        <tr><td>縫い線（でき上がり線）</td><td>縫い合わせる位置の線</td></tr>
+        <tr><td>縫い代</td><td>縫うために縫い線の外側に付ける余白</td></tr>
+        <tr><td>輪郭（裁断線）</td><td>縫い代も含めた、布を裁つ線</td></tr>
+        <tr><td>ダーツ</td><td>体の丸みに合わせて布をつまむ、三角の部分</td></tr>
+        <tr><td>ノッチ（合印）</td><td>縫い合わせる 2 枚の位置を合わせるための切り込み</td></tr>
+        <tr><td>布目線（地の目）</td><td>布のたて糸の向き。型紙を置く向きを示す</td></tr>
+        <tr><td>グレーディング</td><td>M サイズの型紙から S・L などを作ること（これから作る機能）</td></tr>
+        <tr><td>AAMA DXF</td><td>型紙データの業界標準の形式。型紙CAD どうしのやり取りに使う</td></tr>
+        <tr><td>画層</td><td>DXF の中で線の種類を分ける番号（輪郭は 1、ノッチは 4 など）</td></tr>
+      </table>
+    </section>
+  </article>
+</div>
+<script src="shots.js"></script>
+<script src="fig.js"></script>
+</body>
+</html>

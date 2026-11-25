@@ -1,0 +1,150 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>画面の場所｜アパレルCAD マニュアル</title>
+<link rel="stylesheet" href="style.css">
+<style>
+html, body { height: 100%; }
+body { display: flex; flex-direction: column; overflow: hidden; }
+.wrap { flex: 1; display: grid; grid-template-columns: 280px minmax(0, 1fr); min-height: 0; }
+.side { background: var(--panel); border-right: 1px solid var(--line); display: flex; flex-direction: column; min-height: 0; }
+.cats { display: flex; flex-wrap: wrap; gap: 4px; padding: 10px 10px 6px; }
+.cats button { border: 1px solid var(--line); background: #fff; border-radius: 14px; padding: 2px 11px; font: inherit; font-size: 12.5px; cursor: pointer; color: var(--ink); }
+.cats button.on { background: var(--ink); color: #fff; border-color: var(--ink); }
+.side input { margin: 4px 10px 8px; padding: 7px 10px; border: 1px solid var(--line); border-radius: 8px; font: inherit; font-size: 14px; }
+.list { list-style: none; margin: 0; padding: 0 6px 12px; overflow: auto; flex: 1; }
+.list li { display: flex; gap: 9px; align-items: flex-start; padding: 6px 8px; border-radius: 8px; cursor: pointer; font-size: 14px; line-height: 1.45; }
+.list li:hover { background: #f0f2f5; }
+.list li.on { background: var(--acc-soft); outline: 1px solid #f3c4bd; }
+.list li .n { flex: none; min-width: 28px; height: 22px; padding: 0 4px; border-radius: 5px; background: #e6e9ee; font-size: 12px; font-weight: 800; display: flex; align-items: center; justify-content: center; margin-top: 1px; }
+.list li.on .n { background: var(--acc); color: #fff; }
+.list li .c { display: block; font-size: 11px; color: var(--dim); }
+.main { display: flex; flex-direction: column; min-height: 0; min-width: 0; }
+.detail { background: var(--panel); border-bottom: 1px solid var(--line); padding: 12px 20px; display: grid; grid-template-columns: auto minmax(0, 1fr); gap: 2px 16px; flex: none; }
+.detail .no { grid-row: span 4; font-size: 30px; font-weight: 800; color: var(--acc); line-height: 1; padding-top: 2px; }
+.detail h2 { margin: 0; font-size: 18px; }
+.detail p { margin: 0; font-size: 14px; }
+.detail .how { color: var(--dim); }
+.detail .nt { font-size: 13.5px; background: var(--note); border-left: 3px solid #e0a800; padding: 3px 10px; border-radius: 0 6px 6px 0; margin-top: 4px; }
+.view { flex: 1; overflow: auto; background: #2a2e35; min-height: 0; padding: 14px; }
+.stage { position: relative; margin: 0 auto; max-width: 1440px; }
+.stage img { display: block; width: 100%; height: auto; border-radius: 6px; user-select: none; }
+.hs { position: absolute; border: 2px solid rgba(255, 255, 255, .0); border-radius: 4px; cursor: pointer; }
+.stage:hover .hs, .stage.all .hs { border-color: rgba(214, 64, 43, .45); }
+.hs:hover { border-color: var(--acc) !important; background: rgba(214, 64, 43, .08); }
+.hs i { display: none; position: absolute; left: -2px; top: -2px; transform: translateY(-100%); background: var(--acc); color: #fff; font-style: normal; font-size: 11px; font-weight: 800; padding: 0 5px; border-radius: 3px 3px 0 0; white-space: nowrap; }
+.hs:hover i, .hs.on i { display: block; }
+.hs.on { border: 3px solid var(--acc) !important; background: rgba(214, 64, 43, .12); box-shadow: 0 0 0 4000px rgba(0, 0, 0, .38); z-index: 2; }
+.zoom { flex: none; background: #1d2129; padding: 8px 12px; display: flex; gap: 12px; align-items: center; border-top: 1px solid #000; }
+.zoom .lab { color: #aab2bf; font-size: 11px; writing-mode: vertical-rl; flex: none; }
+.zoom .box { flex: 1; height: 150px; border-radius: 6px; position: relative; overflow: hidden; background: #2a2e35; }
+.zoom .box img { position: absolute; max-width: none; }
+.zoom .box i { position: absolute; border: 3px solid var(--acc); border-radius: 4px; box-shadow: 0 0 0 4000px rgba(0, 0, 0, .3); }
+.bar { display: flex; gap: 8px; align-items: center; color: #aab2bf; font-size: 12px; margin: 0 auto 8px; max-width: 1440px; }
+.bar label { cursor: pointer; }
+@media (max-width: 900px) {
+  body { overflow: auto; height: auto; }
+  .wrap { grid-template-columns: 1fr; }
+  .side { border-right: 0; border-bottom: 1px solid var(--line); max-height: 40vh; }
+  .view { padding: 8px; }
+  .zoom .box { height: 110px; }
+}
+</style>
+</head>
+<body>
+<header class="top">
+  <h1>アパレルCAD マニュアル<small>型紙CAD の試作（ver 10）</small></h1>
+  <nav>
+    <a href="concept.html">概要</a>
+    <a href="guide.html">使い方ガイド</a>
+    <a href="index.html" class="on">画面の場所</a>
+  </nav>
+  <span class="grow"></span>
+  <span class="sub">番号か画面の場所を押すと、赤い枠で示します。<kbd>↑</kbd><kbd>↓</kbd> で順送り</span>
+</header>
+<div class="wrap">
+  <aside class="side">
+    <div class="cats" id="cats"></div>
+    <input id="q" placeholder="ことばで探す（例：保存、切り開き）">
+    <ol class="list" id="list"></ol>
+  </aside>
+  <main class="main">
+    <div class="detail" id="detail"></div>
+    <div class="view" id="view">
+      <div class="bar"><label><input type="checkbox" id="all"> 押せる場所を全部表示</label></div>
+      <div class="stage" id="stage"><img src="img/app.png" alt="アパレルCAD の画面（見本の型紙を開いたところ）"></div>
+    </div>
+    <div class="zoom"><span class="lab">拡大</span><div class="box" id="zoom"><img src="img/app.png" alt=""><i></i></div></div>
+  </main>
+</div>
+<script src="shots.js"></script>
+<script src="data.js"></script>
+<script>
+(function () {
+  const $ = (id) => document.getElementById(id);
+  const shot = SHOTS.app, W = shot.w, H = shot.h;
+  const items = DATA.items.filter((f) => shot.r[f.r]);
+  let cur = null, cat = DATA.cats[0].id;
+  const esc = (s) => String(s == null ? '' : s).replace(/[&<>"]/g, (m) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[m]));
+  const catName = (id) => (DATA.cats.find((c) => c.id === id) || {}).title || '';
+
+  $('cats').innerHTML = DATA.cats.map((c) => `<button data-c="${c.id}">${esc(c.title)}</button>`).join('') + '<button data-c="*">すべて</button>';
+  $('cats').onclick = (e) => { const b = e.target.closest('button'); if (!b) return; cat = b.dataset.c; $('q').value = ''; renderList(); const v = visible(); if (v.length && v.indexOf(cur) < 0) select(v[0]); };
+  $('q').oninput = renderList;
+  function visible() {
+    const q = $('q').value.trim().toLowerCase();
+    return items.filter((f) => q ? (f.name + ' ' + f.what + ' ' + (f.how || '') + ' ' + (f.note || '')).toLowerCase().includes(q) : (cat === '*' || f.cat === cat));
+  }
+  function renderList() {
+    const q = $('q').value.trim();
+    [...$('cats').children].forEach((b) => b.classList.toggle('on', b.dataset.c === cat && !q));
+    $('list').innerHTML = visible().map((f) => `<li data-no="${f.no}" class="${f === cur ? 'on' : ''}"><span class="n">${f.no}</span><span>${esc(f.name)}${cat === '*' || q ? `<span class="c">${esc(catName(f.cat))}</span>` : ''}</span></li>`).join('') || '<li>見つかりません</li>';
+  }
+  $('list').onclick = (e) => { const li = e.target.closest('li[data-no]'); if (li) select(byNo(li.dataset.no)); };
+  const byNo = (n) => items.find((f) => f.no === n);
+
+  // 画面の上の押せる場所
+  const pct = (v, d) => (v / d * 100) + '%';
+  $('stage').insertAdjacentHTML('beforeend', items.map((f) => {
+    const r = shot.r[f.r];
+    return `<div class="hs" data-no="${f.no}" title="${f.no} ${esc(f.name)}" style="left:${pct(r[0] - 2, W)};top:${pct(r[1] - 2, H)};width:${pct(r[2] + 4, W)};height:${pct(r[3] + 4, H)}"><i>${f.no} ${esc(f.name)}</i></div>`;
+  }).join(''));
+  $('stage').onclick = (e) => { const h = e.target.closest('.hs'); if (h) select(byNo(h.dataset.no), false); };
+  $('all').onchange = (e) => $('stage').classList.toggle('all', e.target.checked);
+
+  function select(f, scroll = true) {
+    if (!f) return;
+    cur = f;
+    if (cat !== '*' && f.cat !== cat && !$('q').value.trim()) cat = f.cat;
+    renderList();
+    const li = $('list').querySelector(`li[data-no="${f.no}"]`); if (li) li.scrollIntoView({ block: 'nearest' });
+    $('detail').innerHTML = `<div class="no">${f.no}</div><h2>${esc(f.name)}</h2><p>${esc(f.what)}</p>${f.how ? `<p class="how">${esc(f.how)}</p>` : ''}${f.note ? `<p class="nt">${esc(f.note)}</p>` : ''}`;
+    document.querySelectorAll('.hs').forEach((h) => h.classList.toggle('on', h.dataset.no === f.no));
+    if (scroll) { const h = document.querySelector(`.hs[data-no="${f.no}"]`); if (h) h.scrollIntoView({ block: 'nearest', inline: 'nearest', behavior: 'smooth' }); }
+    drawZoom(f);
+  }
+  // 下の拡大：選んだ場所のまわりを大きく
+  function drawZoom(f) {
+    const box = $('zoom'), img = box.querySelector('img'), mark = box.querySelector('i');
+    const r = shot.r[f.r], bw = box.clientWidth, bh = box.clientHeight;
+    const s = Math.min(3, bh / (r[3] + 60), bw / (r[2] + 80));
+    const cx = r[0] + r[2] / 2, cy = r[1] + r[3] / 2;
+    img.style.width = (W * s) + 'px';
+    img.style.left = (bw / 2 - cx * s) + 'px'; img.style.top = (bh / 2 - cy * s) + 'px';
+    Object.assign(mark.style, { left: (bw / 2 - r[2] * s / 2 - 4) + 'px', top: (bh / 2 - r[3] * s / 2 - 4) + 'px', width: (r[2] * s + 8) + 'px', height: (r[3] * s + 8) + 'px' });
+  }
+  window.addEventListener('resize', () => cur && drawZoom(cur));
+  document.addEventListener('keydown', (e) => {
+    if (e.target.tagName === 'INPUT' || !['ArrowDown', 'ArrowUp'].includes(e.key)) return;
+    const v = visible(), i = v.indexOf(cur);
+    const n = v[Math.max(0, Math.min(v.length - 1, i + (e.key === 'ArrowDown' ? 1 : -1)))];
+    if (n) { e.preventDefault(); select(n); }
+  });
+  renderList();
+  select(items.find((f) => f.cat === cat), false);
+})();
+</script>
+</body>
+</html>
